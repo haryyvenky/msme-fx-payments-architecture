@@ -1,2 +1,6 @@
-# msme-fx-payments-architecture
-Phase 1 architecture for low-cost cross-border FX payments for MSMEs
+## Architecture
+
+![Phase 1 System Architecture](diagrams/System%20Architecture%20Flowchart%20V0.svg)
+
+Mermaid source file included for reference:
+- `diagrams/Mermaid Code.mmd`
