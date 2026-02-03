@@ -1,0 +1,40 @@
+---
+config:
+  layout: fixed
+---
+flowchart TB
+    A["MSME Finance / AP Team<br>(ERP: SAP / Oracle / QuickBooks)"] -- Payment Instruction --> B["Web App / API<br>(Airwallex / Stripe / Xfers / SingX)"]
+    A1["ERP / Accounting System<br>(SAP / Oracle / Xero)"] -- Invoice / Ref Data --> B
+    B --> B1["Auth & Role-Based Access"] & B2["Payment Approval Workflow"] & B3["FX Rate Preview & Lock"] & B4["Transaction Caps & Controls"]
+    B -- Approved Payment --> C2["KYC / KYB / AML Screening<br>(Onfido / Trulioo / Sumsub)"]
+    C2 -- Cleared --> C["Safeguarded SGD Account<br>(DBS / UOB / SCB)"]
+    C -- SGD Funding via FAST / PayNow --> C1["FX Execution Engine<br>(1Money / Specie.Finance / Airwallex)"]
+    C1 -- SGD → EUR / USD --> D["Stablecoin Liquidity Pool<br>(USDC / EURC via Circle/Paxos/Fireblocks)"]
+    D --> D1["On-Chain Transfer Engine<br>(Polygon / Ethereum / Solana)"]
+    D1 --> D2["Smart Routing Logic<br>(Custom / Fireblocks)"]
+    D2 --> E1["EU Off-Ramp<br>(SEPA / Wise / Airwallex)"] & E2["US Off-Ramp<br>(ACH / Stripe / Airwallex)"]
+    E1 -- Local EUR Transfer --> F["Supplier Bank Account"]
+    E2 -- Local USD Transfer --> F
+    F --> G["Payment Confirmation"]
+    G --> H["Reconciliation &amp; Reporting Engine<br>(SAP / QuickBooks / Custom)"]
+    H -- Reports &amp; Audit Trail --> A
+
+     A:::bigText
+     B:::bigText
+     A1:::bigText
+     B1:::bigText
+     B2:::bigText
+     B3:::bigText
+     B4:::bigText
+     C2:::bigText
+     C:::bigText
+     C1:::bigText
+     D:::bigText
+     D1:::bigText
+     D2:::bigText
+     E1:::bigText
+     E2:::bigText
+     F:::bigText
+     G:::bigText
+     H:::bigText
+    classDef bigText font-size:16px,fill:#E3F2FD,stroke:#1565C0,stroke-width:2px
