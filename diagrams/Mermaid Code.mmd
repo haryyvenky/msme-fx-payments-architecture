@@ -1,0 +1,78 @@
+flowchart LR
+    %% =========================
+    %% LAYER 1: MSME
+    %% =========================
+    A["MSME Finance / AP Team"]
+    A1["ERP / Accounting System"]
+
+    %% =========================
+    %% LAYER 2: FRONTEND & CONTROLS
+    %% =========================
+    B["Web App / API"]
+    B1["Auth & Role-Based Access"]
+    B2["Payment Approval Workflow"]
+    B3["FX Rate Preview & Lock"]
+    B4["Transaction Caps & Controls"]
+
+    %% =========================
+    %% LAYER 3: SAFEGUARDED FUNDS & FX
+    %% =========================
+    C["Safeguarded SGD Account\nTier-1 SG Bank"]
+    C1["FX Execution Engine"]
+    C2["KYC / KYB / AML Screening"]
+
+    %% =========================
+    %% LAYER 4: INTERNAL SETTLEMENT RAIL
+    %% =========================
+    D["Stablecoin Liquidity Pool\nUSDC / EURC"]
+    D1["On-Chain Transfer Engine"]
+    D2["Smart Routing Logic"]
+
+    %% =========================
+    %% LAYER 5: LOCAL OFF-RAMPS
+    %% =========================
+    E1["EU Off-Ramp\nSEPA / SEPA Instant"]
+    E2["US Off-Ramp\nACH / Fedwire"]
+
+    %% =========================
+    %% LAYER 6: SUPPLIER & REPORTING
+    %% =========================
+    F["Supplier Bank Account"]
+    G["Payment Confirmation"]
+    H["Reconciliation & Reporting Engine"]
+
+    %% =========================
+    %% FLOWS
+    %% =========================
+    A -->|"Payment Instruction"| B
+    A1 -->|"Invoice / Ref Data"| B
+
+    B --> B1
+    B --> B2
+    B --> B3
+    B --> B4
+
+    B -->|"Approved Payment"| C2
+    C2 -->|"Cleared"| C
+
+    C -->|"SGD Funding via FAST / PayNow"| C1
+    C1 -->|"SGD → EUR / USD"| D
+
+    D --> D1
+    D1 --> D2
+
+    D2 --> E1
+    D2 --> E2
+
+    E1 -->|"Local EUR Transfer"| F
+    E2 -->|"Local USD Transfer"| F
+
+    F --> G
+    G --> H
+    H -->|"Reports & Audit Trail"| A
+
+    %% =========================
+    %% HIGHLIGHT SAFEGUARDED FUNDS
+    %% =========================
+    classDef highlight fill:#E3F2FD,stroke:#1565C0,stroke-width:2px
+    class C highlight
